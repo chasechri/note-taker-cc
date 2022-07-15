@@ -13,7 +13,9 @@ app.use(express.static("./devlop/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get("/api/notes", (req, res) => {});
+app.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "./develop/public/notes.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`Api server now on port ${PORT}!`);
