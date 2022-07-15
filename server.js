@@ -1,4 +1,3 @@
-// REDO MODULE 11 WITH CHALLENGE 11 A T THE SAME TIME
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -9,14 +8,12 @@ const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 // const dbNotesjson = require("./develop/db/db.json");
-
+const app = express();
 const PORT = process.env.PORT || 3001;
 
-const app = express();
-
-app.use(express.static("./devlop/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("./devlop/public"));
 
 // api routes
 
@@ -27,9 +24,39 @@ app.get("/api/notes", function (req, res) {
   });
 });
 
-app.post();
+app.post("/api/notes", function (req, res) {
+  const note = req.body;
+  readFileAsync("./develop/db/db.json", "utf-8")
+    .then(function (data) {
+      const notes = [].concat(JSON.parse(data));
+      note.id = notes.length + 1;
+      note.id.push(note);
+      return notes;
+    })
+    .then(function (notes) {
+      writeFileAsync("./develop/db/db.json", JSON.stringify(notes));
+      res.json(note);
+    });
+});
 
-app.delete();
+app.delete("/api/notes/:id", function (req, res) {
+  const idToDelete = parseInt(req.params.id);
+  readFileAsync("./develop/db/db.json", "utf-8")
+    .then(function (data) {
+      const notes = [].concat(JSON.parse(data));
+      const newNotesData = [];
+      for (let i = 0; i < notes.length; i++) {
+        if (idToDelete !== notes[i].id) {
+          newNotesData.push(notes[i]);
+        }
+      }
+      return newNotesData;
+    })
+    .then(function (notes) {
+      writeFileAsync("./develop/db/db.json", JSON.stringify(notes));
+      readFileAsync.send("saved success");
+    });
+});
 
 // html routes
 
