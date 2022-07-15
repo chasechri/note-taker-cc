@@ -17,6 +17,15 @@ app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./develop/public/notes.html"));
 });
 
+app.get("/api/notes", (req, res) => {
+  const dataNotes = fs.readFileSync(
+    path.join(__dirname, "./develop/db/db.json"),
+    "utf-8"
+  );
+  const parseNotes = JSON.parse(dataNotes);
+  res.json(parseNotes);
+});
+
 app.listen(PORT, () => {
   console.log(`Api server now on port ${PORT}!`);
 });
