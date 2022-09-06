@@ -3,12 +3,13 @@ const path = require("path");
 const express = require("express");
 const dbJson = require("./db/db.json");
 var uuidv1 = require("uuidv1");
+const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 // parse incoming string or array data
-app.use(urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse incoming JSON data
 app.use(json());
 app.use(static("public"));
