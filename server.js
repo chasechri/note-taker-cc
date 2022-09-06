@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 // parse incoming string or array data
-app.use(urlencoded({ extended: true }));
+app.use(urlencoded({ extended: false }));
 // parse incoming JSON data
 app.use(json());
 app.use(static("public"));
