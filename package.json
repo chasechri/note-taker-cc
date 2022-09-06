@@ -2,9 +2,10 @@
   "name": "note-taker-cc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,6 @@
   "homepage": "https://github.com/chasechri/note-taker-cc#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "uuid": "^8.3.2"
+    "uuidv1": "^1.6.14"
   }
 }
