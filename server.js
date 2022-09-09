@@ -29,7 +29,7 @@ app.get("*", (req, res) => {
 
 function createNote(body, noteArr) {
   const newNote = body;
-  if (!Array.isArray(notesArray)) noteArr = [];
+  if (!Array.isArray(noteArr)) noteArr = [];
 
   if (noteArr.length === 0) noteArr.push(0);
 
