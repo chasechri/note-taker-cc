@@ -27,6 +27,28 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
+function createNote(body, noteArr) {
+  const newNote = body;
+  if (!Array.isArray(notesArray)) noteArr = [];
+
+  if (noteArr.length === 0) noteArr.push(0);
+
+  body.id = noteArr[0];
+  noteArr[0]++;
+
+  noteArr.push(newNote);
+  fs.writeFileSync(
+    path.join(__dirname, "./db/db.json"),
+    JSON.stringify(noteArr, null, 2)
+  );
+  return newNote;
+}
+
+app.post("/api/notes", (req, res) => {
+  const newNote = createNote(req.body, notes);
+  res.json(newNote);
+});
+
 app.listen(PORT, () => {
   console.log(`API server now on port ${PORT}!`);
 });
